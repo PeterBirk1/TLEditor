@@ -1,7 +1,7 @@
 <Window x:Class="TLEditor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="TL Markdown Editor" Height="800" Width="1400" MinHeight="600" MinWidth="1000"
+        Title="TL Markdown Editor" Height="800" Width="1270" MinHeight="600" MinWidth="1000"
         WindowStartupLocation="CenterScreen" Background="#1E1E1E">
     <Window.Resources>
         <!-- Modern Button Style -->
@@ -9,14 +9,14 @@
             <Setter Property="Background" Value="#4A4A4A"/>
             <Setter Property="BorderBrush" Value="#6A6A6A"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Foreground" Value="#F0F0F0"/>
-            <Setter Property="MinWidth" Value="100"/>
-            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="MinWidth" Value="70"/>
+            <Setter Property="MinHeight" Value="28"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -56,20 +56,20 @@
         
         <!-- Large Button Style -->
         <Style x:Key="LargeButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
-            <Setter Property="Padding" Value="20,10"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="MinWidth" Value="120"/>
-            <Setter Property="MinHeight" Value="36"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="MinHeight" Value="32"/>
         </Style>
         
         <!-- Small Button Style -->
         <Style x:Key="SmallButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
-            <Setter Property="Padding" Value="8,6"/>
-            <Setter Property="FontSize" Value="10"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="MinWidth" Value="32"/>
-            <Setter Property="MinHeight" Value="28"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="MinWidth" Value="26"/>
+            <Setter Property="MinHeight" Value="24"/>
         </Style>
 
         <!-- ComboBox Style -->
@@ -250,8 +250,8 @@
             <Setter Property="BorderBrush" Value="#505050"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="Padding" Value="12"/>
-            <Setter Property="Margin" Value="8,4"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Margin" Value="4,4"/>
             <Setter Property="Effect">
                 <Setter.Value>
                     <DropShadowEffect ShadowDepth="2" BlurRadius="4" Opacity="0.3" Color="Black"/>
@@ -459,7 +459,8 @@
                     <TextBlock Text="📁 Files" FontWeight="SemiBold" FontSize="13" Foreground="#E0E0E0"/>
                 </Border>
                 <TreeView Grid.Row="1" Name="FolderTree" Margin="8,8,8,8" Style="{StaticResource ModernTreeView}"
-                          SelectedItemChanged="FolderTree_SelectedItemChanged">
+                          SelectedItemChanged="FolderTree_SelectedItemChanged"
+                          PreviewMouseDown="FolderTree_PreviewMouseDown">
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="TreeViewItem" BasedOn="{StaticResource ModernTreeViewItem}">
                             <Style.Resources>
@@ -499,23 +500,30 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     
                                     <!-- Primary Actions Row 1 -->
-                                    <Button Grid.Row="0" Grid.Column="0" Name="OpenButton" Content="📂 Open" 
+                                    <Button Grid.Row="0" Grid.Column="0" Name="NewFileButton" Content="📄 New" 
+                                            Click="NewFileButton_Click" Style="{StaticResource LargeButton}" 
+                                            ToolTip="Create new file (Ctrl+N)" Margin="0,0,1,0"/>
+                                    <Button Grid.Row="0" Grid.Column="1" Name="OpenButton" Content="📂 Open" 
                                             Click="OpenButton_Click" Style="{StaticResource LargeButton}" 
-                                            ToolTip="Open file (Ctrl+O)" Margin="0,0,2,0"/>
-                                    <Button Grid.Row="0" Grid.Column="1" Name="SaveButton" Content="💾 Save" 
+                                            ToolTip="Open file (Ctrl+O)" Margin="1,0,1,0"/>
+                                    <Button Grid.Row="0" Grid.Column="2" Name="SaveButton" Content="💾 Save" 
                                             Click="SaveButton_Click" Style="{StaticResource LargeButton}" 
-                                            ToolTip="Save file (Ctrl+S)" Margin="2,0,0,0"/>
+                                            ToolTip="Save file (Ctrl+S)" Margin="1,0,0,0"/>
                                     
                                     <!-- Secondary Actions Row 2 -->
-                                    <Button Grid.Row="1" Grid.Column="0" Name="SaveAsButton" Content="📄 Save As..." 
+                                    <Button Grid.Row="1" Grid.Column="0" Name="SaveAsButton" Content="Save As" 
                                             Click="SaveAsButton_Click" Style="{StaticResource ModernButton}" 
-                                            ToolTip="Save as different file" Margin="0,4,2,0"/>
+                                            ToolTip="Save as different file" Margin="0,2,1,0"/>
                                     <Button Grid.Row="1" Grid.Column="1" Name="OpenFolderButton" Content="📁 Folder" 
                                             Click="OpenFolderButton_Click" Style="{StaticResource ModernButton}" 
-                                            ToolTip="Open folder" Margin="2,4,0,0"/>
+                                            ToolTip="Open folder" Margin="1,2,1,0"/>
+                                    <Button Grid.Row="1" Grid.Column="2" Name="CloseTabButton" Content="✕ Close" 
+                                            Click="CloseTabButton_Click" Style="{StaticResource ModernButton}" 
+                                            ToolTip="Close current tab" Margin="1,2,0,0"/>
                                 </Grid>
                             </StackPanel>
                         </Border>
@@ -528,7 +536,8 @@
                                     <Button Name="UndoButton" Content="↶ Undo" Click="UndoButton_Click" Style="{StaticResource ModernButton}" ToolTip="Undo (Ctrl+Z)"/>
                                     <Button Name="RedoButton" Content="↷ Redo" Click="RedoButton_Click" Style="{StaticResource ModernButton}" ToolTip="Redo (Ctrl+Y)"/>
                                 </StackPanel>
-                                <Button Name="FindReplaceButton" Content="🔍 Find/Replace" Click="FindReplaceButton_Click" Style="{StaticResource ModernButton}" ToolTip="Find/Replace (Ctrl+F)" Margin="0,4,0,0"/>
+                                <Button Name="FindReplaceButton" Content="🔍 Find" Click="FindReplaceButton_Click" Style="{StaticResource ModernButton}" ToolTip="Find/Replace (Ctrl+F)" Margin="0,2,0,0"/>
+                                <CheckBox Name="HybridModeCheckBox" Content="Hybrid" IsChecked="False" Margin="0,4,0,0" Foreground="#F0F0F0" FontSize="10" ToolTip="Enable header formatting during save operations"/>
                             </StackPanel>
                         </Border>
                         
@@ -549,16 +558,16 @@
                                     <!-- List Buttons Row 1 -->
                                     <Button Grid.Row="0" Grid.Column="0" Name="BulletListButton" Content="• List" 
                                             Click="BulletListButton_Click" Style="{StaticResource ModernButton}" 
-                                            ToolTip="Bullet List" Margin="0,0,2,0"/>
+                                            ToolTip="Bullet List" Margin="0,0,1,0"/>
                                     <Button Grid.Row="0" Grid.Column="1" Name="NumberListButton" Content="1. List" 
                                             Click="NumberListButton_Click" Style="{StaticResource ModernButton}" 
-                                            ToolTip="Numbered List" Margin="2,0,0,0"/>
+                                            ToolTip="Numbered List" Margin="1,0,0,0"/>
                                     
                                     <!-- Table Button Row 2 -->
                                     <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="InsertTableButton" 
-                                            Content="⊞ Insert Table" Click="InsertTableButton_Click" 
+                                            Content="⊞ Table" Click="InsertTableButton_Click" 
                                             Style="{StaticResource ModernButton}" ToolTip="Insert Table" 
-                                            Margin="0,4,0,0" HorizontalAlignment="Stretch"/>
+                                            Margin="0,2,0,0" HorizontalAlignment="Stretch"/>
                                 </Grid>
                             </StackPanel>
                         </Border>
@@ -582,14 +591,85 @@
                 </ScrollViewer>
             </Border>
             
-            <!-- Markdown Editor -->
+            <!-- Tabbed Markdown Editors -->
             <Border Grid.Row="1" Background="#1E1E1E" BorderThickness="0" Margin="8">
-                <RichTextBox Name="Editor" Margin="16" Style="{StaticResource DarkRichTextBox}"
-                             AcceptsReturn="True" AcceptsTab="True"
-                             VerticalScrollBarVisibility="Auto"
-                             HorizontalScrollBarVisibility="Auto"
-                             FontFamily="Segoe UI" FontSize="14"
-                             TextChanged="Editor_TextChanged"/>
+                <TabControl Name="EditorTabs" Background="#1E1E1E" BorderThickness="0" 
+                           SelectionChanged="EditorTabs_SelectionChanged">
+                    <TabControl.Resources>
+                        <!-- Tab Header Style -->
+                        <Style TargetType="TabItem">
+                            <Setter Property="Background" Value="#3C3C3C"/>
+                            <Setter Property="Foreground" Value="#E0E0E0"/>
+                            <Setter Property="BorderBrush" Value="#505050"/>
+                            <Setter Property="BorderThickness" Value="1,1,1,0"/>
+                            <Setter Property="Padding" Value="8,8"/>
+                            <Setter Property="Margin" Value="0,0,2,0"/>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Border x:Name="Border" Background="{TemplateBinding Background}" 
+                                               BorderBrush="{TemplateBinding BorderBrush}" 
+                                               BorderThickness="{TemplateBinding BorderThickness}"
+                                               CornerRadius="6,6,0,0" Margin="{TemplateBinding Margin}">
+                                            <Grid Margin="{TemplateBinding Padding}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <ContentPresenter x:Name="ContentSite" Grid.Column="0"
+                                                                ContentSource="Header" 
+                                                                HorizontalAlignment="Left" 
+                                                                VerticalAlignment="Center"
+                                                                Margin="0,0,8,0"/>
+                                                <Button x:Name="CloseButton" Grid.Column="1"
+                                                       Content="✕" FontSize="10" Width="16" Height="16"
+                                                       Background="Transparent" BorderThickness="0"
+                                                       Foreground="#C0C0C0" FontWeight="Bold"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       Cursor="Hand" Padding="0" Margin="0"
+                                                       Click="TabCloseButton_Click"
+                                                       ToolTip="Close tab">
+                                                    <Button.Style>
+                                                        <Style TargetType="Button">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="Button">
+                                                                        <Border Background="{TemplateBinding Background}" 
+                                                                               CornerRadius="8">
+                                                                            <ContentPresenter HorizontalAlignment="Center" 
+                                                                                            VerticalAlignment="Center"/>
+                                                                        </Border>
+                                                                        <ControlTemplate.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="Background" Value="#E74C3C"/>
+                                                                                <Setter Property="Foreground" Value="White"/>
+                                                                            </Trigger>
+                                                                        </ControlTemplate.Triggers>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="#505050"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="#1E1E1E"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="#4A9EFF"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
+                    <!-- No initial tabs - will be empty on startup -->
+                </TabControl>
             </Border>
         </Grid>
         
